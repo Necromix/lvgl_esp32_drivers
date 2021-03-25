@@ -214,6 +214,11 @@ bool lvgl_spi_driver_init(int host,
     const char *spi_names[] = {
         "SPI_HOST", "", ""
     };
+#elif defined (CONFIG_IDF_TARGET_ESP32C3)
+    assert((SPI_HOST <= host) && (HSPI_HOST >= host));
+    const char *spi_names[] = {
+        "SPI_HOST", "HSPI_HOST", ""
+    };
 #endif
 
     ESP_LOGI(TAG, "Configuring SPI host %s (%d)", spi_names[host], host);
@@ -232,7 +237,7 @@ bool lvgl_spi_driver_init(int host,
     };
 
     ESP_LOGI(TAG, "Initializing SPI bus...");
-    esp_err_t ret = spi_bus_initialize(host, &buscfg, dma_channel);
+    esp_err_t ret = spi_bus_initialize(host, &buscfg, SPI_DMA_CH_AUTO);
     assert(ret == ESP_OK);
 
     return ESP_OK != ret;

@@ -98,7 +98,8 @@ menu "LVGL Touch controller"
             prompt "GPIO for MISO (Master In Slave Out)"
             range 0 39 if IDF_TARGET_ESP32
             range 0 43 if IDF_TARGET_ESP32S2
-            
+            range 0 21 if IDF_TARGET_ESP32C3            
+
             default 35 if LV_PREDEFINED_PINS_38V1
             default 19
             help
@@ -109,6 +110,7 @@ menu "LVGL Touch controller"
             prompt "GPIO for MOSI (Master Out Slave In)"
             range 0 39 if IDF_TARGET_ESP32
             range 0 43 if IDF_TARGET_ESP32S2
+            range 0 21 if IDF_TARGET_ESP32C3            
 
             default 32 if LV_PREDEFINED_PINS_38V1
             default 23
@@ -119,6 +121,7 @@ menu "LVGL Touch controller"
             int "GPIO for CLK (SCK / Serial Clock)"
             range 0 39 if IDF_TARGET_ESP32
             range 0 43 if IDF_TARGET_ESP32S2
+            range 0 21 if IDF_TARGET_ESP32C3            
             
             default 26 if LV_PREDEFINED_PINS_38V1
             default 18
@@ -129,6 +132,7 @@ menu "LVGL Touch controller"
             int "GPIO for CS (Slave Select)"
             range 0 39 if IDF_TARGET_ESP32
             range 0 43 if IDF_TARGET_ESP32S2
+            range 0 21 if IDF_TARGET_ESP32C3            
             
             default 33 if LV_PREDEFINED_PINS_38V1
             default 5
@@ -139,6 +143,7 @@ menu "LVGL Touch controller"
             int "GPIO for IRQ (Interrupt Request)"
             range 0 39 if IDF_TARGET_ESP32
             range 0 43 if IDF_TARGET_ESP32S2
+            range 0 21 if IDF_TARGET_ESP32C3            
 	    
             default 27 if LV_PREDEFINED_PINS_38V4
             default 25
