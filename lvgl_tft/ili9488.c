@@ -117,7 +117,8 @@ void ili9488_init(void)
 // Flush function based on mvturnho repo
 void ili9488_flush(lv_disp_drv_t * drv, const lv_area_t * area, lv_color_t * color_map)
 {
-    uint32_t size = lv_area_get_width(area) * lv_area_get_height(area);
+#if 1
+    uint32_t size = lv_area_get_width(area);	// * lv_area_get_height(area);
 
     lv_color16_t *buffer_16bit = (lv_color16_t *) color_map;
     uint8_t *mybuf;
@@ -125,19 +126,6 @@ void ili9488_flush(lv_disp_drv_t * drv, const lv_area_t * area, lv_color_t * col
         mybuf = (uint8_t *) heap_caps_malloc(3 * size * sizeof(uint8_t), MALLOC_CAP_DMA);
         if (mybuf == NULL)  ESP_LOGW(TAG, "Could not allocate enough DMA memory!");
     } while (mybuf == NULL);
-
-    uint32_t LD = 0;
-    uint32_t j = 0;
-
-    for (uint32_t i = 0; i < size; i++) {
-        LD = buffer_16bit[i].full;
-        mybuf[j] = (uint8_t) (((LD & 0xF800) >> 8) | ((LD & 0x8000) >> 13));
-        j++;
-        mybuf[j] = (uint8_t) ((LD & 0x07E0) >> 3);
-        j++;
-        mybuf[j] = (uint8_t) (((LD & 0x001F) << 3) | ((LD & 0x0010) >> 2));
-        j++;
-    }
 
 	/* Column addresses  */
 	uint8_t xb[] = {
@@ -166,8 +154,23 @@ void ili9488_flush(lv_disp_drv_t * drv, const lv_area_t * area, lv_color_t * col
 	/*Memory write*/
 	ili9488_send_cmd(ILI9488_CMD_MEMORY_WRITE);
 
-	ili9488_send_color((void *) mybuf, size * 3);
+	for (int y=0; y < lv_area_get_height(area); y++) {
+		uint32_t LD = 0;
+    	uint32_t j = 0;
+
+		for (uint32_t i = 0; i < size; i++) {
+			LD = buffer_16bit[(y * size) + i].full;
+			mybuf[j] = (uint8_t) (((LD & 0xF800) >> 8) | ((LD & 0x8000) >> 13));
+			j++;
+			mybuf[j] = (uint8_t) ((LD & 0x07E0) >> 3);
+			j++;
+			mybuf[j] = (uint8_t) (((LD & 0x001F) << 3) | ((LD & 0x0010) >> 2));
+			j++;
+		}
+		ili9488_send_color((void *) mybuf, size * 3);
+	}
 	heap_caps_free(mybuf);
+#endif	
 }
 
 void ili9488_enable_backlight(bool backlight)
