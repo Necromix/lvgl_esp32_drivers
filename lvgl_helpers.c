@@ -215,7 +215,7 @@ bool lvgl_spi_driver_init(int host,
         "SPI_HOST", "", ""
     };
 #elif defined (CONFIG_IDF_TARGET_ESP32C3)
-    assert((SPI_HOST <= host) && (HSPI_HOST >= host));
+    assert((SPI1_HOST <= host) && (SPI2_HOST >= host));
     const char *spi_names[] = {
         "SPI_HOST", "HSPI_HOST", ""
     };
