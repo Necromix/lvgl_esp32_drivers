@@ -76,16 +76,16 @@ void ili9488_init(void)
 	};
 
 	//Initialize non-SPI GPIOs
-        gpio_pad_select_gpio(ILI9488_DC);
+        gpio_reset_pin(ILI9488_DC);
 	gpio_set_direction(ILI9488_DC, GPIO_MODE_OUTPUT);
 
 #if ILI9488_USE_RST
-        gpio_pad_select_gpio(ILI9488_RST);
+        gpio_reset_pin(ILI9488_RST);
 	gpio_set_direction(ILI9488_RST, GPIO_MODE_OUTPUT);
 #endif
 
 #if ILI9488_ENABLE_BACKLIGHT_CONTROL
-        gpio_pad_select_gpio(ILI9488_BCKL);
+        gpio_reset_pin(ILI9488_BCKL);
 	gpio_set_direction(ILI9488_BCKL, GPIO_MODE_OUTPUT);
 #endif
 

@@ -86,16 +86,16 @@ void st7789_init(void)
     };
 
     //Initialize non-SPI GPIOs
-    gpio_pad_select_gpio(ST7789_DC);
+    gpio_reset_pin(ST7789_DC);
     gpio_set_direction(ST7789_DC, GPIO_MODE_OUTPUT);
 
 #if !defined(ST7789_SOFT_RST)
-    gpio_pad_select_gpio(ST7789_RST);
+    gpio_reset_pin(ST7789_RST);
     gpio_set_direction(ST7789_RST, GPIO_MODE_OUTPUT);
 #endif
 
 #if ST7789_ENABLE_BACKLIGHT_CONTROL
-    gpio_pad_select_gpio(ST7789_BCKL);
+    gpio_reset_pin(ST7789_BCKL);
     gpio_set_direction(ST7789_BCKL, GPIO_MODE_OUTPUT);
 #endif
 

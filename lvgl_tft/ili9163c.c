@@ -138,13 +138,13 @@ void ili9163c_init(void)
 	};
 
 	//Initialize non-SPI GPIOs
-	gpio_pad_select_gpio(ILI9163C_DC);
+	gpio_reset_pin(ILI9163C_DC);
 	gpio_set_direction(ILI9163C_DC, GPIO_MODE_OUTPUT);
-	gpio_pad_select_gpio(ILI9163C_RST);
+	gpio_reset_pin(ILI9163C_RST);
 	gpio_set_direction(ILI9163C_RST, GPIO_MODE_OUTPUT);
 
 #if ILI9163C_ENABLE_BACKLIGHT_CONTROL
-	gpio_pad_select_gpio(ILI9163C_BCKL);
+	gpio_reset_pin(ILI9163C_BCKL);
 	gpio_set_direction(ILI9163C_BCKL, GPIO_MODE_OUTPUT);
 #endif
 	//Reset the display

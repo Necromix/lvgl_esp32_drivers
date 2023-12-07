@@ -122,16 +122,16 @@ void GC9A01_init(void)
 #endif
 
 	//Initialize non-SPI GPIOs
-        gpio_pad_select_gpio(GC9A01_DC);
+        gpio_reset_pin(GC9A01_DC);
 	gpio_set_direction(GC9A01_DC, GPIO_MODE_OUTPUT);
 
 #if GC9A01_USE_RST
-        gpio_pad_select_gpio(GC9A01_RST);
+        gpio_reset_pin(GC9A01_RST);
 	gpio_set_direction(GC9A01_RST, GPIO_MODE_OUTPUT);
 #endif
 
 #if GC9A01_ENABLE_BACKLIGHT_CONTROL
-    gpio_pad_select_gpio(GC9A01_BCKL);
+    gpio_reset_pin(GC9A01_BCKL);
     gpio_set_direction(GC9A01_BCKL, GPIO_MODE_OUTPUT);
 #endif
 
