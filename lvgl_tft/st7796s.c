@@ -108,9 +108,9 @@ void st7796s_init(void)
 #if ST7796S_USE_RST
 	//Reset the display
 	gpio_set_level(ST7796S_RST, 0);
-	vTaskDelay(100 / portTICK_RATE_MS);
+	vTaskDelay(100 / portTICK_PERIOD_MS);
 	gpio_set_level(ST7796S_RST, 1);
-	vTaskDelay(100 / portTICK_RATE_MS);
+	vTaskDelay(100 / portTICK_PERIOD_MS);
 #endif
 
 	ESP_LOGI(TAG, "Initialization.");
@@ -123,7 +123,7 @@ void st7796s_init(void)
 		st7796s_send_data(init_cmds[cmd].data, init_cmds[cmd].databytes & 0x1F);
 		if (init_cmds[cmd].databytes & 0x80)
 		{
-			vTaskDelay(100 / portTICK_RATE_MS);
+			vTaskDelay(100 / portTICK_PERIOD_MS);
 		}
 		cmd++;
 	}
